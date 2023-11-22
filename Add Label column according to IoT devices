@@ -1,0 +1,41 @@
+import pandas as pd
+import numpy as np
+
+df=pd.read_csv("./Dataset2.csv")
+
+data=df.copy()
+print(data)
+
+data["label"]=""
+# data["connection type"]=""
+print(data)
+
+devices_df=pd.read_csv("./list_devices.csv")
+print(devices_df)
+
+df.sample(frac=1)
+
+# Amazon Echo 				44:65:0d:56:cc:d3
+for index,row in devices_df.iterrows():
+    mac_addr=row["Mac Address"]
+    device=row["List of Devices"]
+    # connection_type=row["Connection Type"]
+    condition=data["eth.src"]==mac_addr
+    # data.loc[condition,["label","connection type"]]=[device,connection_type]
+    data.loc[condition,"label"]=device
+    
+print(data)
+
+data.to_csv("./Dataset2.csv",index=False)
+
+df=pd.read_csv("./Dataset2.csv")
+
+#To know how much devices are there in a dataset
+df['label'].unique()
+
+#Sorting IoT devices
+df.sort_values("label", inplace = True)
+
+#Grouping IoT devices
+gkk = df.groupby(['label', 'Packet ID'])
+print(gkk.first())
