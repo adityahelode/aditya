@@ -1,0 +1,10 @@
+import glob
+import pandas as pd
+import os
+import re
+
+joined_list = glob.glob("./data-set1/*")
+print(joined_list)
+
+df = pd.concat(map(pd.read_csv, joined_list), ignore_index=True)
+print(df)
