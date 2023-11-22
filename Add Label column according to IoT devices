@@ -25,7 +25,7 @@ for index,row in devices_df.iterrows():
     data.loc[condition,"label"]=device
     
 print(data)
-
+#Copying Data to new file
 data.to_csv("./Dataset2.csv",index=False)
 
 df=pd.read_csv("./Dataset2.csv")
