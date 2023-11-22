@@ -1,0 +1,65 @@
+import pandas as pd 
+from sklearn.model_selection import train_test_split 
+from sklearn import metrics 
+from sklearn.preprocessing import LabelEncoder
+from matplotlib import pyplot as plt 
+import numpy as np
+import csv
+
+df = pd.read_csv("IoT_Devices.csv")
+df.head()
+
+df.info()
+
+#Dropping Null Values
+df = df.dropna()
+
+objList = df.select_dtypes(include = "object").columns
+print (objList)
+
+#Label Encoding
+L = LabelEncoder()
+for feat in objList:
+    df[feat] = L.fit_transform(df[feat].astype(str))
+print (df.info())
+
+X = df.drop(['label','Packet ID','TIME','IP.proto','IP.src','port.dst'],axis=1)
+X.head()
+
+Y=df['label']
+Y.head()
+
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=100)
+
+from sklearn.preprocessing import StandardScaler
+scalar = StandardScaler()
+X_train = scalar.fit_transform(X_train)
+X_test = scalar.transform(X_test)
+
+#Applying PCA
+from sklearn.decomposition import PCA
+  
+pca = PCA(n_components = 5)
+  
+X_train = pca.fit_transform(X_train)
+X_test = pca.transform(X_test)
+
+#Applying SVM Model
+l
+from sklearn import svm
+
+#Create a svm Classifier
+clf = svm.SVC(kernel='linear',  C=1.0, decision_function_shape='ovo') # Linear Kernel
+
+#Train the model using the training sets
+clf.fit(X_train, Y_train)
+
+#Predict the response for test dataset
+Y_pred = clf.predict(X_test)
+
+
+from sklearn.metrics import confusion_matrix
+Cmat = confusion_matrix(Y_test, Y_pred)
+print(Cmat)
+
+print("ACCURACY OF THE MODEL: ", metrics.accuracy_score(Y_test, Y_pred))
