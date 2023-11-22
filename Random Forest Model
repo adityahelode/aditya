@@ -44,7 +44,7 @@ pca = PCA(n_components = 5)
 X_train = pca.fit_transform(X_train)
 X_test = pca.transform(X_test)
 
-#Applying Decision Tree Model
+#Applying Random Forest Model
 from sklearn.ensemble import RandomForestClassifier
 rf_model = RandomForestClassifier(n_estimators =5).fit(X_train, Y_train)
 Y_pred = rf_model.predict(X_test)
