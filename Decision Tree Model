@@ -10,6 +10,7 @@ import csv
 df = pd.read_csv("IoT_Devices.csv")
 df.head()
 
+#Information regarding dataset
 df.info()
 
 #Dropping Null Values
