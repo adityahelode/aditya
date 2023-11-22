@@ -31,6 +31,7 @@ Y.head()
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=100)
 
+#Standardisation
 from sklearn.preprocessing import StandardScaler
 scalar = StandardScaler()
 X_train = scalar.fit_transform(X_train)
